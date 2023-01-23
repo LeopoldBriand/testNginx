@@ -7,6 +7,16 @@ services:
       - '7777:7777'
     networks:
       - swarm_network
+  deploy:
+    labels:
+      # Enable Traefik for this service, to make it available in the public network
+      - "traefik.enable=true"
+      - "traefik.docker.network=swarm_network"
+      - "traefik.docker.lbswarm=false" # Use swarm loadbalancing
+      - "traefik.http.routers.rand.rule=PathPrefix(`/toto`)"
+      - "traefik.http.routers.rand.entrypoints=web"
+      - "traefik.http.services.rand.loadbalancer.server.port=7777" # Wich port is exposed, mandatory for swarm
+      - "traefik.http.services.flame.loadbalancer.server.scheme=http"
 networks:
   swarm_network:
     external: true

@@ -7,6 +7,13 @@ services:
       - '8090:8090'
     networks:
       - swarm_network
-   networks:
+  deploy:
+    labels:
+      # Enable Traefik for this service, to make it available in the public network
+      - traefik.enable=true
+      - traefik.docker.network=swarm_network
+      - traefik.client.rule=PathPrefixStrip:/
+
+networks:
   swarm_network:
     external: true
