@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  client:
+    image: test-client:new
+    ports:
+      - '8090:8090'
+    networks:
+      - swarm_network
+   networks:
+  swarm_network:
+    external: true

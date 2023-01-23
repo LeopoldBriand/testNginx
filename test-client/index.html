@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RD</title>
+</head>
+<body>
+    <h1>Random Number</h1>
+    <div>
+        <p>Get new random number:</p>
+        <button type="submit" onclick="getRandomNumber()">Call</button>
+    </div>
+    <p>"The value for number is: " <span id="number"></span></p>
+    <script type="text/javascript">
+        async function getRandomNumber() {
+            const response = await fetch('api', {
+                headers: { 'Content-Type': 'application/json'}
+            }).then(response => {
+                return response.json();
+            }).catch(err => {
+                console.error(`Error while getting random number: ${err}`)
+            });
+            document.getElementById("number").innerHTML = response;
+        }
+    </script>
+</body>
+</html>
